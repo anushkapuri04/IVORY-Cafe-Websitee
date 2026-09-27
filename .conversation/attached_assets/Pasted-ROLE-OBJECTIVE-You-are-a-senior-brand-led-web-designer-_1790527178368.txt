@@ -1,0 +1,142 @@
+ROLE & OBJECTIVE
+
+You are a senior brand-led web designer and front-end developer. Design and build a premium, modern, mobile-first restaurant/cafe website for IVORY — The Modern Cafe And Eatery, a 4.7-star (496 reviews) all-day cafe and multi-cuisine restaurant in Kathgodam, Uttarakhand, India. The site must feel hand-crafted by a boutique design agency — never generic, templated, or "AI-made." Every section should feel intentional, spacious, and premium.
+
+BRAND SNAPSHOT (facts — do not alter)
+Name: IVORY — The Modern Cafe And Eatery
+Category: Coffee shop / Multi-cuisine restaurant & cafe
+Rating: 4.7★ from 496 Google reviews
+Address: Janki High Street, above Bank of Baroda, Sheesh Mahal, Kathgodam, Damua Dhunga, Uttarakhand 263126
+Phone: 097592 35352
+Hours: Open daily, closes 11 PM
+Reservations: Available via EazyDiner
+Cuisines: North Indian, Italian (pizza, pasta, risotto), Asian (Chinese/Thai/Japanese sushi), Continental, Lebanese, plus a full coffee/tea/shake/mocktail bar
+Vibe from reviews: calm and well-maintained ambience, rooftop/cozy seating, live music on some nights, friendly and attentive staff (guests repeatedly name servers like Pankaj and Rohit), strong bakery/dessert program (cheesecake is a standout), popular for dates, birthdays, and small celebrations. A few reviews mention inconsistent service speed during peak hours and one report of an undercooked takeaway order — do not fabricate ratings claims beyond the real 4.7/496 figure, and do not reference the negative reviews on the site itself.
+Signature/most-praised items (from reviews & menu highlights): Smokey BBQ Paneer Sandwich, Cappuccino, Paneer Butter Masala, Chilli Garlic Prawns, Tender Manchurian Gravy, Ivory Luxury Butter Chicken, Dal Makhani, Lebanese Platter, Tuscan Misticanza Salad, Burmese Khowsuey, Cheesecake, Bubblegum Shake, Fruit Punch, Thai Cigar Roll, Dahi Ke Kebab.
+Instagram: [INSTAGRAM_PROFILE_URL — insert Ivory's actual Instagram handle/link here before launch]
+Zomato / online ordering: [ZOMATO_OR_ORDER_LINK — insert actual link here before launch]
+DESIGN DIRECTION
+
+Overall feel: Warm, elevated, editorial — closer to a boutique hotel or fine-dining microsite than a typical food-delivery landing page. Confident whitespace, refined typography, subtle motion — never busy or cluttered.
+
+Color palette (minimal, 3–4 colors max):
+
+Base: Warm ivory/off-white (
+#F7F3EC or similar) — the brand's namesake color
+Anchor: Deep charcoal or espresso brown (
+#2A1F1A / 
+#1C1512) for text and dark sections
+Accent: A single warm metallic or muted gold (
+#B08D57 or 
+#C9A66B) used sparingly for CTAs, dividers, icons
+Optional whisper tone: a muted sage or terracotta for subtle backgrounds — use only if it stays minimal
+
+Typography:
+
+Headings: an elegant modern serif (e.g., a Playfair/Fraunces-style display serif) for editorial warmth
+Body: a clean humanist sans-serif for readability
+Generous line-height and letter-spacing on headers; avoid default system fonts
+
+Motion & interaction:
+
+Smooth, calm scroll-triggered fade/slide-ins (subtle, not flashy)
+Gentle 3D tilt or parallax on hero imagery and menu category cards on hover/scroll
+Buttons and cards should have soft depth (subtle shadow, micro-lift on hover)
+No jarring animations, no auto-playing carousels that distract from content
+Respect prefers-reduced-motion
+
+Imagery direction:
+
+Warm, natural-light food and interior photography style (the client will supply real photos — use tasteful placeholders with the correct aspect ratios in the interim)
+Avoid stock-photo clichés; favor close-up, textural food shots and cozy interior/rooftop ambience shots
+SITE STRUCTURE
+
+Global elements on every page:
+
+Sticky, minimal header: logo (wordmark "IVORY"), nav links (Home / Menu / About Us / Visit Us), a persistent "Reserve a Table" or "Order Now" button (accent color)
+Footer: address, phone, hours, social icon(s) linking to Instagram, quick nav links, subtle copyright line
+1. HOME PAGE
+Hero section: Full-bleed warm interior/food photography, large serif headline, short persuasive subheadline, two CTAs ("Reserve a Table" primary, "View Menu" secondary). Include the 4.7★ (496 reviews) trust badge near the hero.
+Brand intro / "Our Story" teaser: 2–3 sentence warm, editorial paragraph introducing Ivory as a modern all-day cafe and multi-cuisine eatery in Kathgodam, with a "Read more" link to About Us.
+Signature dishes strip: 4–6 cards showcasing the most-praised items (Smokey BBQ Paneer Sandwich, Paneer Butter Masala, Chilli Garlic Prawns, Cappuccino, Cheesecake, etc.) with a "View Full Menu" CTA.
+Why Ivory / experience highlights: 3–4 short feature blocks drawn from review themes — e.g. "All-Day Coffee & Bakery," "Multi-Cuisine Dining," "Calm, Curated Ambience," "Perfect for Celebrations" — each with a one-line description and simple icon.
+Social proof: A tasteful testimonial/review carousel pulling 3–4 short, positive guest quotes (paraphrased, not verbatim copy-paste) alongside the 4.7★ rating.
+Instagram section: A gallery grid (6–8 tiles) that visually represents an embedded/linked Instagram feed, with a "Follow us on Instagram" CTA linking to the Instagram profile.
+Closing CTA band: Reservation + location + hours, driving toward Visit Us / Reserve.
+2. MENU PAGE
+
+Build an interactive, clickable menu with two top-level categories: Food and Beverages. Within Food, split into two clearly toggled/filterable lists: Veg and Non-Veg (use a simple green/red or leaf/no-leaf indicator dot consistent with Indian menu conventions — no prices, per client instruction).
+
+Use clean sub-category groupings (accordions or tabbed sections) so the menu doesn't feel like a wall of text. Suggested grouping and items below (extracted from the provided source menu, prices removed):
+
+FOOD — VEG
+Starters & Appetizers: Bharwa Tandoori Mushroom, Chaupati Paneer Tikka, Chilly Mushroom Dry, Chilly Paneer Dry, Creamy Soya Chaap, Crispy Corn Peppers & Cilantro, Dahi Ke Kebab With Mint Salsa, Vegetable 99, Thai Cigar Roll Stuffed With Glass Noodles & Sweet Chilli, Traditional Italian Arancini Balls Filled With Cheese, Cheese & Truffle Mushroom Bruschetta, Pesto Tomato Confit Bruschetta
+Soups & Salads: Burmese Khowsuey (Veg), Hot & Sour (Veg), Manchow (Veg), Sweet Corn (Veg), Mushroom Cappuccino & Truffle Oil Soup, Roasted Tomato Basil Creamy Soup, Classic Caesar Salad (Veg), Garden Green Salad, Tuscan Misticanza Salad (Veg), Classic Waldorf Salad (Veg)
+Mains — North Indian: Dal Dhaba, Dal Makhani, Kadhai Paneer, Khumb Makai Palak, Paneer Butter Masala, Vegetable Jalfreji
+Mains — Italian: Penne (Choice of Sauce), Spaghetti Aglio Olio, Wild Mushroom Risotto With Cream Cheese & Truffle Oil
+Pizza: BBQ Cottage Cheese & Caramelized Onion Pizza, Farm House, Fungo Con Mais, La Margheritra
+Asian Mains: Assorted Chinese Greens With Black Bean Sauce, Chilli Garlic Fried Rice, Chilly Garlic Noodles, Pan Fried Noodles, Schezwan Fried Rice, Schezwan Noodles, Singapuri Noodles, Tender Manchurian Gravy, Veg Fried Rice, Veg Hakka Noodles, Wok Tossed Stir Asian Veggies
+Dumplings & Sushi: Assorted Mushroom Dumpling, Vegetable Dumpling, Ivory Veg Tempura Roll, Vegetable Garden Delight
+Rice & Biryani: Jeera Rice, Steamed Rice, Veg Biryani
+Quick Bites & Sandwiches: Garlic Bread, Loaded Fries, Mexican Fries, Peri Peri Fries, Salted French Fries, Buttery Bombay Masala Sandwich, Classic TLC Sandwich, Classic Vegetable & Cheese Burger, Corn & Spinach Sandwich, Smokey BBQ Paneer Sandwich
+Breads: Lachha Parantha, Naan (Butter), Naan (Garlic), Naan (Plain), Roti (Butter), Roti (Garlic), Roti (Plain)
+Platters: Veg Platter, Veg Lebanese Platter
+Desserts: Chef Special Cheese Cake, Tiramisu, Blueberry Cheese Cake, Fresh Fruit Truffle Pudding, Ivory Cookie Creamy Jar, Walnut Brownie With Ice Cream
+FOOD — NON-VEG
+Starters & Appetizers: Butter Garlic Fried Chicken, Chilli Garlic Prawns, Korean Fried Chicken, Lucknowi Chicken Seekh Kebab, Murg Malai Tikka, BBQ Chicken Wings, Raunaween Mutton Seekh Kebab, Tandoori Chicken & Achari Mayo Bruschetta, Pooled Chicken With Onion Jam Bruschetta, Classic Tandoori Bhati Da Murgh (Full/Half), Ivory Steamed Fish With Lemon Chilli Dressing & Veggies
+Soups & Salads: Burmese Khowsuey (Non-Veg), Hot & Sour (Non-Veg), Manchow (Non-Veg), Sweet Corn (Non-Veg), Caesar Salad (Non-Veg), Tuscan Misticanza Salad (Non-Veg), Classic Waldorf Salad (Non-Veg)
+Mains — North Indian: Deghchi Ka Gosht, Ivory Luxury Butter Chicken, Ivory Paneer Kaleji Curry, Kadhai Chicken, Military Chicken Curry, Mutton Rara
+Mains — Seafood & Grill: Fish & Chips With Tartar Sauce, Goan Fish Curry, Grilled Chicken With Mashed Potato In Red Wine Jus, Grilled Fish With Herbs & Lemon Butter Sauce, Pan Fried Amritsari Fish
+Mains — Italian: Oven Baked Fresh Rosemary Lamb Lasagna With Garlic Bread
+Pizza: Chicken Tikka Pizza, Pepperoni A La New York, Polo Con BBQ, Polo Con Salami
+Asian Mains: Assorted Chinese Greens With Black Bean Chicken, Kung Pao Chicken, Thai Chilly Basil Sauce – Chicken
+Dumplings & Sushi: Chicken & Herbs Dumpling, Ivory Bhati Murgh Delight, Prawns Tempura Roll
+Rice & Biryani: Chicken Biryani, Mutton Biryani
+Sandwiches: Fresh Herb Chicken Burger, Smokey BBQ Chicken Sandwich, Spicy Salami Sandwich
+Platters: Non-Veg Platter, Non-Veg Mezze Platter
+BEVERAGES
+Hot Coffee: Americano, Cafe Latte, Cafe Mocha, Cappuccino, Espresso, Flat White, Hot Chocolate
+Hot Teas: Assam Black, Chamomile Tea, Earl Grey Tea, Green Tea, Lemon Tea, Masala Tea
+Classic Cold Coffee: Affogato, Caramel Frappe, Iced Americano, Iced Latte, Iced Mocha, Irish Coffee, Ivory Classic Cold Coffee, Macchiato
+Cold Brew & Specialty: Nutella Iced Tea, Vietnamese Cold Brew, Classic Ginger Ale Brew
+Shakes: Banana Strawberry Shake, Blueberry Shake, Bubblegum Shake, Chocolate Malted Fudge, Classic Seasonal Fruit Shake, KitKat Oreo Shake, Peanut Butter Banana Shake, Vanilla Shake
+Juices & Soft Drinks: Apple Juice, Coca-Cola, Fresh Lime Soda, Fresh Lime Water, Lemon Iced Tea, Orange Juice, Peach Iced Tea, Piña Colada (mocktail-style), Pomegranate Juice, Water Bottle, Diet Coke, Spiced Chai
+Mocktails: Blue Swirl, Classic Mojito, Fruit Punch, Green Apple Splash, Kala Khatta Cooler, Marbella Mojito, Spicy Guava, Watermelon Mojito
+
+Menu page UX requirements:
+
+Sticky category sub-nav (Food / Beverages) at the top of the page for quick jumping
+Within Food, a clear Veg/Non-Veg toggle or filter pill
+Each dish name displayed cleanly with a small veg/non-veg indicator dot; no prices shown
+Optional short 4–6 word evocative descriptor may be added under standout/signature items only (do not invent ingredients not implied by the dish name)
+Include a "View Full Menu / Order Now" button linking to the Zomato/ordering link at the top and bottom of the page
+3. ABOUT US PAGE
+Hero/intro: A warm editorial section introducing Ivory as a modern, all-day cafe and multi-cuisine eatery in Kathgodam, blending global cuisines (Indian, Italian, Asian, Lebanese) with a coffee-and-bakery culture, in a calm, design-led space.
+Our philosophy: 2–3 short paragraphs on the guest experience — freshness, hospitality, a space equally suited to quiet work sessions, family meals, dates, and celebrations (draw tone from the genuinely warm, recurring themes in guest reviews: friendly staff, calm ambience, quality food — do not invent awards, chef names, or history not present in the source data).
+What makes Ivory different: 3–4 pillars — All-Day Coffee & Bakery Program, Global Multi-Cuisine Kitchen, Thoughtfully Designed Space, Warm & Attentive Service.
+Trust strip: 4.7★ rating badge (496 Google reviews) with a short line of context.
+CTA band: "Come experience Ivory" → Visit Us / Reserve a Table.
+4. VISIT US PAGE
+Location & hours block: Full address (Janki High Street, above Bank of Baroda, Sheesh Mahal, Kathgodam, Damua Dhunga, Uttarakhand 263126), phone number (097592 35352), hours (Open daily, closes 11 PM), embedded map placeholder.
+Reserve a Table CTA: Prominent button linking to the EazyDiner reservation page (or the client's preferred reservation flow).
+Get in touch: Click-to-call phone button, "Get Directions" button.
+Instagram section: A second, location-flavored Instagram gallery/embed ("See you there — follow @Ivory on Instagram") linking to the Instagram profile, reinforcing the visit-in-person CTA.
+Closing note: A short, warm one-line sign-off inviting guests to visit.
+COPYWRITING GUIDELINES
+Tone: warm, confident, editorial — never generic "delicious food, great ambience" filler. Ground every claim in what the real data supports (multi-cuisine menu breadth, 4.7★/496 reviews, calm ambience, all-day coffee culture, celebration-friendly).
+Every CTA should be specific and action-oriented: "Reserve Your Table," "Explore the Menu," "See You at Ivory" — avoid generic "Click Here."
+Do not fabricate awards, certifications, founding years, chef names, or menu ingredients not present in the source data.
+Keep paragraphs short (2–4 sentences) for mobile readability.
+TECHNICAL / RESPONSIVE REQUIREMENTS
+Mobile-first responsive layout; test at 375px, 768px, 1024px, 1440px breakpoints
+Fast-loading, optimized images with proper lazy-loading
+Accessible color contrast, semantic HTML, alt text on all images
+Sticky header collapses to a clean hamburger menu on mobile
+All buttons/CTAs must be thumb-friendly on mobile (min 44px tap target)
+Smooth anchor-link scrolling between sections
+SEO basics: descriptive page titles, meta descriptions, and header hierarchy reflecting "Ivory Cafe Kathgodam," "multi-cuisine restaurant Kathgodam," "cafe near Kathgodam"
+BEFORE LAUNCH — CLIENT TO SUPPLY
+Real Instagram profile URL (placeholder used above: [INSTAGRAM_PROFILE_URL])
+Real Zomato / online-ordering URL (placeholder used above: [ZOMATO_OR_ORDER_LINK])
+High-resolution interior, exterior, and food photography
+Confirmation of the reservation flow (EazyDiner link vs. a native booking form)

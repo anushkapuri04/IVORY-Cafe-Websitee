@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "IVORY — The Modern Cafe And Eatery"
+description = "A premium, mobile-first website for IVORY in Kathgodam, presenting its all-day cafe culture, multi-cuisine menu, calm ambience, reviews, and visit information."
+version = "1.0.0"
+id = "artifacts/ivory-cafe"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19554
+
+[services.development]
+run = "pnpm --filter @workspace/ivory-cafe run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ivory-cafe", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/ivory-cafe/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19554"
+BASE_PATH = "/"
