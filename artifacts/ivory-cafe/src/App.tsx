@@ -1,15 +1,77 @@
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
 import { ArrowUpRight, CalendarDays, ChevronRight, Clock3, Instagram, Leaf, MapPin, Menu as MenuIcon, Navigation, Phone, Star, X } from 'lucide-react';
+import { ClerkProvider, Show, SignIn, SignUp, useClerk, useUser } from '@clerk/react';
+import { publishableKeyFromHost } from '@clerk/react/internal';
+import { shadcn } from '@clerk/themes';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Link, Route, Switch, Router as WouterRouter, useLocation } from 'wouter';
+import { Link, Redirect, Route, Switch, Router as WouterRouter, useLocation } from 'wouter';
 import NotFound from '@/pages/not-found';
 
 const queryClient = new QueryClient();
 const heroImage = '/ivory-hero.png';
 const diningImage = '/ivory-dining.png';
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const clerkPubKey = publishableKeyFromHost(
+  window.location.hostname,
+  import.meta.env.VITE_CLERK_PUBLISHABLE_KEY,
+);
+const clerkProxyUrl = import.meta.env.VITE_CLERK_PROXY_URL;
+
+if (!clerkPubKey) {
+  throw new Error('Missing VITE_CLERK_PUBLISHABLE_KEY in .env file');
+}
+
+const clerkAppearance = {
+  theme: shadcn,
+  cssLayerName: 'clerk',
+  options: {
+    logoPlacement: 'inside' as const,
+    logoLinkUrl: basePath || '/',
+    logoImageUrl: `${window.location.origin}${basePath}/logo.svg`,
+  },
+  variables: {
+    colorPrimary: 'hsl(29 75% 55%)',
+    colorForeground: 'hsl(27 25% 18%)',
+    colorMutedForeground: 'hsl(27 11% 43%)',
+    colorDanger: 'hsl(5 62% 44%)',
+    colorBackground: 'hsl(43 42% 94%)',
+    colorInput: 'hsl(45 50% 97%)',
+    colorInputForeground: 'hsl(27 25% 18%)',
+    colorNeutral: 'hsl(36 23% 82%)',
+    fontFamily: 'DM Sans, sans-serif',
+    borderRadius: '0.35rem',
+  },
+  elements: {
+    rootBox: 'w-full flex justify-center',
+    cardBox: 'bg-[#f7f1df] rounded-none w-[440px] max-w-full overflow-hidden border border-[#d9cdb3]',
+    card: '!shadow-none !border-0 !bg-transparent !rounded-none',
+    footer: '!shadow-none !border-0 !bg-transparent !rounded-none',
+    headerTitle: '!font-display !text-[#34251c] !text-4xl',
+    headerSubtitle: '!text-[#6c5c4d]',
+    socialButtonsBlockButtonText: '!text-[#34251c]',
+    formFieldLabel: '!text-[#34251c]',
+    footerActionLink: '!text-[#a85f16] hover:!text-[#34251c]',
+    footerActionText: '!text-[#6c5c4d]',
+    dividerText: '!text-[#6c5c4d]',
+    identityPreviewEditButton: '!text-[#a85f16]',
+    formFieldSuccessText: '!text-[#3f6e55]',
+    alertText: '!text-[#34251c]',
+    logoBox: 'h-16',
+    logoImage: 'h-14 w-14',
+    socialButtonsBlockButton: '!border-[#d9cdb3] !bg-[#fffdf6] hover:!bg-[#efe5ce]',
+    formButtonPrimary: '!bg-[#34251c] hover:!bg-[#a85f16] !text-[#f7f1df]',
+    formFieldInput: '!border-[#d9cdb3] !bg-[#fffdf6] !text-[#34251c] focus:!border-[#a85f16]',
+    footerAction: '!border-0',
+    dividerLine: '!bg-[#d9cdb3]',
+    alert: '!border-[#d9cdb3] !bg-[#efe5ce]',
+    otpCodeFieldInput: '!border-[#d9cdb3] !bg-[#fffdf6] !text-[#34251c]',
+    formFieldRow: 'gap-2',
+    main: 'gap-5',
+  },
+};
 
 type MenuItem = { name: string; note: string; tag?: 'veg' | 'non-veg' };
 type MenuGroup = { title: string; intro: string; items: MenuItem[] };
@@ -44,6 +106,37 @@ function usePageMeta(title: string, description: string) {
   }, [title, description]);
 }
 
+function AccountControls({ mobile = false }: { mobile?: boolean }) {
+  const { user, isLoaded } = useUser();
+  const { signOut } = useClerk();
+
+  if (!isLoaded) return null;
+
+  if (!user) {
+    return (
+      <div className={mobile ? 'grid gap-2 pt-5' : 'hidden items-center gap-3 sm:flex'}>
+        <Link href="/sign-in" data-testid={mobile ? 'link-mobile-sign-in' : 'link-sign-in'} className={mobile ? 'flex min-h-11 items-center justify-center border border-foreground/20 px-4 font-mono-ivory text-[10px] uppercase tracking-[.12em]' : 'font-mono-ivory text-[10px] uppercase tracking-[.12em] text-foreground/65 transition hover:text-accent'}>
+          Sign in
+        </Link>
+        <Link href="/sign-up" data-testid={mobile ? 'link-mobile-sign-up' : 'link-sign-up'} className={mobile ? 'flex min-h-11 items-center justify-center bg-accent px-4 font-mono-ivory text-[10px] uppercase tracking-[.12em]' : 'font-mono-ivory text-[10px] uppercase tracking-[.12em] text-accent transition hover:text-foreground'}>
+          Create an account
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className={mobile ? 'grid gap-2 border-t border-foreground/10 pt-5' : 'hidden items-center gap-3 sm:flex'}>
+      <Link href="/account" data-testid={mobile ? 'link-mobile-account' : 'link-account'} className={mobile ? 'flex min-h-11 items-center justify-center border border-foreground/20 px-4 font-mono-ivory text-[10px] uppercase tracking-[.12em]' : 'font-mono-ivory text-[10px] uppercase tracking-[.12em] text-foreground/65 transition hover:text-accent'}>
+        {user.firstName ? `Hello, ${user.firstName}` : 'Your account'}
+      </Link>
+      <button type="button" onClick={() => signOut({ redirectUrl: basePath || '/' })} data-testid={mobile ? 'button-mobile-sign-out' : 'button-sign-out'} className={mobile ? 'flex min-h-11 items-center justify-center bg-foreground px-4 font-mono-ivory text-[10px] uppercase tracking-[.12em] text-background' : 'font-mono-ivory text-[10px] uppercase tracking-[.12em] text-foreground/45 transition hover:text-foreground'}>
+        Sign out
+      </button>
+    </div>
+  );
+}
+
 function Shell({ children }: { children: ReactNode }) {
   const [location] = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -62,11 +155,12 @@ function Shell({ children }: { children: ReactNode }) {
             {navItems.map((item) => <Link key={item.href} href={item.href} data-testid={`link-nav-${item.label.toLowerCase()}`} className={`font-mono-ivory text-[10px] uppercase tracking-[.16em] transition-colors hover:text-accent ${location === item.href ? 'text-accent' : 'text-foreground/65'}`}>{item.label}</Link>)}
           </nav>
           <div className="flex items-center gap-3">
+            <AccountControls />
             <button type="button" onClick={() => setBookingOpen(true)} data-testid="button-header-reserve" className="hidden items-center gap-2 border border-foreground bg-foreground px-4 py-3 font-mono-ivory text-[10px] uppercase tracking-[.12em] text-background transition hover:bg-accent hover:text-foreground sm:flex">Reserve a table <ArrowUpRight size={13} /></button>
             <button type="button" aria-label="Open navigation menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((open) => !open)} data-testid="button-mobile-menu" className="flex h-11 w-11 items-center justify-center border border-foreground/20 md:hidden">{menuOpen ? <X size={19} /> : <MenuIcon size={19} />}</button>
           </div>
         </div>
-        {menuOpen && <nav aria-label="Mobile navigation" className="border-t border-foreground/10 bg-background px-5 py-5 md:hidden">{navItems.map((item) => <Link key={item.href} href={item.href} data-testid={`link-mobile-${item.label.toLowerCase()}`} className="flex border-b border-foreground/10 py-4 font-display text-3xl">{item.label}<ChevronRight className="ml-auto" size={24} /></Link>)}<button type="button" onClick={() => { setBookingOpen(true); setMenuOpen(false); }} data-testid="button-mobile-reserve" className="mt-5 w-full bg-accent px-4 py-4 text-left font-mono-ivory text-[10px] uppercase tracking-[.14em]">Reserve through EazyDiner <ArrowUpRight className="float-right" size={14} /></button></nav>}
+        {menuOpen && <nav aria-label="Mobile navigation" className="border-t border-foreground/10 bg-background px-5 py-5 md:hidden">{navItems.map((item) => <Link key={item.href} href={item.href} data-testid={`link-mobile-${item.label.toLowerCase()}`} className="flex border-b border-foreground/10 py-4 font-display text-3xl">{item.label}<ChevronRight className="ml-auto" size={24} /></Link>)}<AccountControls mobile /><button type="button" onClick={() => { setBookingOpen(true); setMenuOpen(false); }} data-testid="button-mobile-reserve" className="mt-5 w-full bg-accent px-4 py-4 text-left font-mono-ivory text-[10px] uppercase tracking-[.14em]">Reserve through EazyDiner <ArrowUpRight className="float-right" size={14} /></button></nav>}
       </header>
       {children}
       <Footer onReserve={() => setBookingOpen(true)} />
@@ -140,13 +234,176 @@ function VisitPage() {
   return <main className="pt-[76px]"><section className="bg-accent px-5 py-20 md:px-10 md:py-28"><div className="mx-auto max-w-[1400px]"><p className="eyebrow text-foreground/70">Your table is waiting</p><h1 className="mt-6 max-w-5xl font-display text-[clamp(4.5rem,11vw,10rem)] leading-[.78]">Come find<br />your <em>way here.</em></h1></div></section><section className="mx-auto max-w-[1400px] px-5 py-16 md:px-10 md:py-24"><div className="grid gap-14 md:grid-cols-[.8fr_1.2fr]"><div><p className="eyebrow text-accent">The details</p><div className="mt-8 space-y-8"><div className="flex gap-4"><MapPin className="mt-1 shrink-0 text-accent" size={19} /><div><h2 className="font-display text-2xl">Where to find us</h2><p className="mt-2 text-sm leading-6 text-foreground/65">Janki High Street<br />Above Bank of Baroda<br />Sheesh Mahal, Kathgodam<br />Damua Dhunga, Uttarakhand 263126</p></div></div><div className="flex gap-4"><Clock3 className="mt-1 shrink-0 text-accent" size={19} /><div><h2 className="font-display text-2xl">When to visit</h2><p className="mt-2 text-sm leading-6 text-foreground/65">Open daily until 11 PM</p></div></div><div className="flex gap-4"><Phone className="mt-1 shrink-0 text-accent" size={19} /><div><h2 className="font-display text-2xl">Call the team</h2><a href="tel:09759235352" data-testid="link-visit-phone" className="mt-2 block text-sm text-foreground/65 underline decoration-accent underline-offset-4">097592 35352</a></div></div></div></div><div><div className="flex min-h-[370px] flex-col justify-between border border-foreground/15 bg-secondary/55 p-7 md:min-h-[460px] md:p-10"><div className="flex items-start justify-between"><div><p className="eyebrow text-accent">How to arrive</p><h2 className="mt-5 max-w-sm font-display text-5xl leading-[.9]">Look for IVORY above the bank.</h2></div><Navigation className="text-accent" size={28} /></div><div><div className="mb-5 h-px w-full bg-foreground/15" /><p className="max-w-md text-sm leading-6 text-foreground/60">We are in Janki High Street, at Sheesh Mahal in Kathgodam. Use the address above for your preferred map service.</p><a href="https://maps.google.com/?q=Janki+High+Street+Kathgodam" target="_blank" rel="noopener noreferrer" data-testid="link-open-map" className="mt-6 inline-flex min-h-12 items-center gap-3 bg-foreground px-5 py-4 font-mono-ivory text-[10px] uppercase tracking-[.13em] text-background">Open map <ArrowUpRight size={14} /></a></div></div></div></div></section><section className="bg-foreground px-5 py-16 text-background md:px-10 md:py-24"><div className="mx-auto flex max-w-[1400px] flex-col gap-8 md:flex-row md:items-center md:justify-between"><div><p className="eyebrow text-accent">Planning ahead?</p><h2 className="mt-4 font-display text-5xl leading-[.9] md:text-7xl">Reservations via EazyDiner.</h2><p className="mt-5 max-w-lg text-sm leading-6 text-background/65">The direct booking destination will be linked here soon. For now, call us and we will help.</p></div><a href="tel:09759235352" data-testid="link-visit-call" className="inline-flex min-h-12 items-center gap-3 self-start bg-accent px-5 py-4 font-mono-ivory text-[10px] uppercase tracking-[.13em] text-foreground"><Phone size={15} /> Call IVORY</a></div></section></main>;
 }
 
+function AccountPage() {
+  usePageMeta('Your IVORY Account', 'Manage your IVORY account and stay connected with the modern cafe and eatery in Kathgodam.');
+  const { user } = useUser();
+  const { signOut } = useClerk();
+
+  if (!user) return null;
+
+  return (
+    <main className="min-h-[70vh] px-5 pb-24 pt-[150px] md:px-10">
+      <section className="mx-auto max-w-[920px]">
+        <p className="eyebrow text-accent">Your IVORY account</p>
+        <div className="mt-6 grid gap-10 md:grid-cols-[1.1fr_.9fr] md:items-end">
+          <div>
+            <h1 className="max-w-3xl font-display text-[clamp(4rem,9vw,8rem)] leading-[.8]">
+              Welcome{user.firstName ? `, ${user.firstName}` : ''}.
+            </h1>
+            <p className="mt-8 max-w-lg text-base leading-7 text-foreground/65">
+              You are signed in to IVORY. Keep this space close for future reservations, updates, and the next reason to come by.
+            </p>
+          </div>
+          <div className="border-t border-foreground/15 pt-5 md:border-l md:border-t-0 md:pl-8">
+            <p className="eyebrow text-foreground/45">Signed in as</p>
+            <p className="mt-3 break-all font-display text-2xl">{user.primaryEmailAddress?.emailAddress ?? 'Your IVORY account'}</p>
+            <button type="button" onClick={() => signOut({ redirectUrl: basePath || '/' })} data-testid="button-account-sign-out" className="mt-7 inline-flex min-h-12 items-center gap-3 bg-foreground px-5 py-4 font-mono-ivory text-[10px] uppercase tracking-[.13em] text-background transition hover:bg-accent hover:text-foreground">
+              Sign out <ArrowUpRight size={15} />
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function SignInPage() {
+  return (
+    <div className="flex min-h-[100dvh] items-center justify-center bg-background px-4 py-10">
+      <SignIn routing="path" path={`${basePath}/sign-in`} signUpUrl={`${basePath}/sign-up`} />
+    </div>
+  );
+}
+
+function SignUpPage() {
+  return (
+    <div className="flex min-h-[100dvh] items-center justify-center bg-background px-4 py-10">
+      <SignUp routing="path" path={`${basePath}/sign-up`} signInUrl={`${basePath}/sign-in`} />
+    </div>
+  );
+}
+
+function HomeRedirect() {
+  return (
+    <>
+      <Show when="signed-in">
+        <Redirect to="/account" />
+      </Show>
+      <Show when="signed-out">
+        <Home />
+      </Show>
+    </>
+  );
+}
+
+function AccountRoute() {
+  return (
+    <>
+      <Show when="signed-in">
+        <AccountPage />
+      </Show>
+      <Show when="signed-out">
+        <Redirect to="/sign-in" />
+      </Show>
+    </>
+  );
+}
+
+function ClerkQueryClientCacheInvalidator() {
+  const { addListener } = useClerk();
+  const previousUserId = useState<string | null | undefined>(undefined);
+  const previousUserIdRef = previousUserId[0];
+  const setPreviousUserId = previousUserId[1];
+
+  useEffect(() => {
+    const unsubscribe = addListener(({ user }) => {
+      const userId = user?.id ?? null;
+      if (previousUserIdRef !== undefined && previousUserIdRef !== userId) {
+        queryClient.clear();
+      }
+      setPreviousUserId(userId);
+    });
+    return unsubscribe;
+  }, [addListener, previousUserIdRef, setPreviousUserId]);
+
+  return null;
+}
+
 function Router() {
   const [location] = useLocation();
-  return <ErrorBoundary resetKey={location}><Shell><Switch><Route path="/" component={Home} /><Route path="/menu" component={MenuPage} /><Route path="/about" component={AboutPage} /><Route path="/visit" component={VisitPage} /><Route component={NotFound} /></Switch></Shell></ErrorBoundary>;
+  return (
+    <ErrorBoundary resetKey={location}>
+      <Switch>
+        <Route path="/sign-in/*?" component={SignInPage} />
+        <Route path="/sign-up/*?" component={SignUpPage} />
+        <Route component={SiteRouter} />
+      </Switch>
+    </ErrorBoundary>
+  );
+}
+
+function SiteRouter() {
+  return (
+    <Shell>
+      <Switch>
+        <Route path="/" component={HomeRedirect} />
+        <Route path="/menu" component={MenuPage} />
+        <Route path="/about" component={AboutPage} />
+        <Route path="/visit" component={VisitPage} />
+        <Route path="/account" component={AccountRoute} />
+        <Route component={NotFound} />
+      </Switch>
+    </Shell>
+  );
+}
+
+function ClerkProviderWithRoutes() {
+  const [, setLocation] = useLocation();
+  const stripBase = (path: string) => basePath && path.startsWith(basePath)
+    ? path.slice(basePath.length) || '/'
+    : path;
+
+  return (
+    <ClerkProvider
+      publishableKey={clerkPubKey}
+      proxyUrl={clerkProxyUrl}
+      appearance={clerkAppearance}
+      signInUrl={`${basePath}/sign-in`}
+      signUpUrl={`${basePath}/sign-up`}
+      localization={{
+        signIn: {
+          start: {
+            title: 'Welcome back',
+            subtitle: 'Sign in to keep IVORY close',
+          },
+        },
+        signUp: {
+          start: {
+            title: 'Create your IVORY account',
+            subtitle: 'Stay close to your next table',
+          },
+        },
+      }}
+      routerPush={(to) => setLocation(stripBase(to))}
+      routerReplace={(to) => setLocation(stripBase(to), { replace: true })}
+    >
+      <ClerkQueryClientCacheInvalidator />
+      <Router />
+    </ClerkProvider>
+  );
 }
 
 function App() {
-  return <QueryClientProvider client={queryClient}><TooltipProvider><WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}><Router /></WouterRouter><Toaster /></TooltipProvider></QueryClientProvider>;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <WouterRouter base={basePath}>
+          <ClerkProviderWithRoutes />
+        </WouterRouter>
+        <Toaster />
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
 }
 
 export default App;

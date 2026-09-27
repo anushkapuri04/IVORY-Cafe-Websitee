@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">IVORY</title>
+  <desc id="desc">The IVORY monogram in deep teak</desc>
+  <rect width="160" height="160" fill="#F7F1DF"/>
+  <rect x="15" y="15" width="130" height="130" fill="none" stroke="#34251C" stroke-width="3"/>
+  <path d="M49 42h18v53c0 13 6 20 15 20s15-7 15-20V42h18v54c0 24-12 36-33 36S49 120 49 96V42Z" fill="#34251C"/>
+  <path d="M80 42v75" stroke="#D68B35" stroke-width="3"/>
+</svg>
